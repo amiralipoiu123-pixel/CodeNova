@@ -1,0 +1,54 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ورود مدیر | CodeNova</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body class="admin-login-page">
+    <main class="admin-login-card">
+        <div class="admin-login-logo">CodeNova</div>
+
+        <p class="admin-login-subtitle">
+            ورود امن به پنل مدیریت
+        </p>
+
+        {% if error %}
+            <div class="admin-login-error" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <form method="post" class="admin-login-form">
+            {% csrf_token %}
+
+            <label for="username">نام کاربری</label>
+            <input
+                id="username"
+                name="username"
+                type="text"
+                autocomplete="username"
+                required
+                autofocus
+            >
+
+            <label for="password">رمز عبور</label>
+            <input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button type="submit">ورود به پنل</button>
+        </form>
+    </main>
+</body>
+</html>

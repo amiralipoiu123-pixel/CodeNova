@@ -1,0 +1,25 @@
+# Python
+pycache/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+venv_shop/
+.venv/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Django
+db.sqlite3
+staticfiles/
+media/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+*.backup

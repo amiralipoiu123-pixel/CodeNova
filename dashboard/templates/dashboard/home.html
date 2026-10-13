@@ -1,0 +1,153 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت سفارش‌ها | CodeNova</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body class="cn-dashboard">
+    <aside class="cn-sidebar">
+        <div class="cn-brand">CodeNova<span>.</span></div>
+
+        <nav>
+            <a class="active" href="{% url 'dashboard:home' %}">مدیریت سفارش‌ها</a>
+            <a href="#all-orders">همه سفارش‌ها</a>
+        </nav>
+
+        <form method="post" action="{% url 'dashboard:logout' %}">
+            {% csrf_token %}
+            <button class="cn-logout" type="submit">خروج از پنل</button>
+        </form>
+    </aside>
+
+    <main class="cn-main">
+        <header class="cn-topbar">
+            <div>
+                <h1>مدیریت سفارش‌ها</h1>
+                <p>خوش اومدی، {{ request.user.username }} 👋</p>
+            </div>
+            <span class="cn-admin-badge">مدیر</span>
+        </header>
+        <section class="cn-stats">
+            <article class="cn-stat-card">
+                <span>کل سفارش‌ها</span>
+                <strong>{{ total_orders }}</strong>
+                <small>تمام سفارش‌های ثبت‌شده</small>
+            </article>
+
+            <article class="cn-stat-card cn-stat-new">
+                <span>سفارش‌های جدید</span>
+                <strong>{{ new_orders }}</strong>
+                <small>در انتظار بررسی</small>
+            </article>
+
+            <article class="cn-stat-card cn-stat-progress">
+                <span>در حال انجام</span>
+                <strong>{{ in_progress_orders }}</strong>
+                <small>پروژه‌های فعال</small>
+            </article>
+
+            <article class="cn-stat-card cn-stat-completed">
+                <span>تکمیل‌شده</span>
+                <strong>{{ completed_orders }}</strong>
+                <small>پروژه‌های به پایان رسیده</small>
+            </article>
+
+            <article class="cn-stat-card cn-stat-cancelled">
+                <span>لغوشده</span>
+                <strong>{{ cancelled_orders }}</strong>
+                <small>سفارش‌های لغوشده</small>
+            </article>
+        </section>
+        <section class="cn-orders" id="all-orders">
+            <h2>همه سفارش‌ها</h2>
+
+            <form method="get" action="{% url 'dashboard:home' %}" class="cn-order-filters">
+                <input
+                    type="search"
+                    name="q"
+                    value="{{ search }}"
+                    placeholder="جست‌وجو بر اساس نام یا راه ارتباطی..."
+                >
+
+                <select name="status">
+                    <option value="">همه وضعیت‌ها</option>
+                    {% for value, label in status_choices %}
+                        <option value="{{ value }}" {% if selected_status == value %}selected{% endif %}>
+                            {{ label }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <select name="service">
+                    <option value="">همه نوع پروژه‌ها</option>
+                    {% for value, label in service_choices %}
+                        <option value="{{ value }}" {% if selected_service == value %}selected{% endif %}>
+                            {{ label }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit">اعمال فیلتر</button>
+                <a href="{% url 'dashboard:home' %}">پاک کردن</a>
+            </form>
+
+            {% if orders %}
+                <div class="cn-table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>نام مشتری</th>
+                                <th>نوع پروژه</th>
+                                <th>راه ارتباطی</th>
+                                <th>توضیحات</th>
+                                <th>وضعیت</th>
+                                <th>تاریخ ثبت</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                                <tr>
+                                    <td>{{ order.name }}</td>
+                                    <td>{{ order.get_service_display }}</td>
+                                    <td>{{ order.contact }}</td>
+                                    <td>{{ order.description|truncatechars:80 }}</td>
+                                    <td>
+                                        <form
+                                            method="post"
+                                            action="{% url 'dashboard:update_order_status' order.id %}"
+                                            class="cn-status-form"
+                                        >
+                                            {% csrf_token %}
+
+                                            <select name="status" aria-label="وضعیت سفارش">
+                                                {% for value, label in status_choices %}
+                                                    <option
+                                                        value="{{ value }}"
+                                                        {% if order.status == value %}selected{% endif %}
+                                                    >
+                                                        {{ label }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+
+                                            <button type="submit">ذخیره</button>
+                                        </form>
+                                    </td>
+                                    <td>{{ order.created_at|date:"Y/m/d H:i" }}</td>
+                                </tr>
+                            {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <p class="cn-empty">سفارشی با این مشخصات پیدا نشد.</p>
+                        {% endif %}
+                    </section>
+                </main>
+            </body>
+            </html>

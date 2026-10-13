@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}{% endblock title %}</title> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bulma.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+        {% include 'navbar.html' %}
+        {% if messages %}
+            <ul class='messages'>
+                {% for message in messages %}
+                    <li style="margin-left: 110px;">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="container">
+            {% block content %}
+            {% if messages %}
+    <div class="cn-toast-container" aria-live="polite">
+        {% for message in messages %}
+            <div class="cn-toast {{ message.tags }}" role="status">
+                <span class="cn-toast-icon">✓</span>
+                <span class="cn-toast-text">{{ message }}</span>
+                <button type="button"
+                        class="cn-toast-close"
+                        aria-label="بستن پیام"
+                        onclick="this.closest('.cn-toast').remove()">
+                    ×
+                </button>
+            </div>
+        {% endfor %}
+    </div>
+            {% endif %}
+            {% endblock content %}
+        </div>
+        <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

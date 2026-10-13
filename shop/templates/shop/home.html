@@ -1,0 +1,147 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+<main class="cn-home">
+
+    <section class="cn-hero">
+        <div class="cn-hero-content">
+
+            <span class="cn-eyebrow">
+                ✦ استودیو طراحی و توسعه وب CodeNova
+            </span>
+
+            <h1>
+                ایده‌ات رو به
+                <span>واقعیت تبدیل کن</span>
+            </h1>
+
+            <p class="cn-hero-description">
+                از ایده تا اجرا، همراهت هستیم.
+                وب‌سایت و فروشگاه اینترنتی اختصاصی خودت رو
+                با طراحی مدرن و امکانات موردنیازت بساز.
+            </p>
+
+            <div class="cn-hero-actions">
+                <a href="#services" class="cn-primary-button">
+                    کشف خدمات
+                    <span>←</span>
+                </a>
+
+                <a href="#about" class="cn-secondary-button">
+                    بیشتر درباره ما
+                </a>
+            </div>
+
+            <div class="cn-hero-note">
+                <span class="cn-status-dot"></span>
+                آماده‌ایم ایده بعدی رو بررسی کنیم
+            </div>
+
+        </div>
+
+        <div class="cn-hero-visual" aria-hidden="true">
+            <div class="cn-glow"></div>
+
+            <div class="cn-code-card">
+                <div class="cn-code-header">
+                    <div class="cn-window-dots">
+                        <i></i><i></i><i></i>
+                    </div>
+                    <span>your_project.py</span>
+                </div>
+
+                <div class="cn-code-body">
+                    <p><span class="cn-purple">class</span>
+                        <span class="cn-blue">YourIdea</span>:</p>
+
+                    <p class="cn-indent">
+                        <span class="cn-purple">def</span>
+                        <span class="cn-yellow">build</span>(self):
+                    </p>
+
+                    <p class="cn-indent-2">
+                        <span class="cn-blue">design</span> =
+                        <span class="cn-green">"beautiful"</span>
+                    </p>
+
+                    <p class="cn-indent-2">
+                        <span class="cn-blue">quality</span> =
+                        <span class="cn-green">"professional"</span>
+                    </p>
+
+                    <p class="cn-indent-2">
+                        <span class="cn-purple">return</span>
+                        <span class="cn-green">"Your future"</span>
+                    </p>
+
+                    <div class="cn-terminal">
+                        <span>➜</span> Building your next big idea...
+                        <span class="cn-cursor">_</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cn-floating-badge">
+                <span>✦</span>
+                Crafted with code
+            </div>
+        </div>
+    </section>
+
+    <section class="cn-services" id="services">
+        <div class="cn-section-heading">
+            <span class="cn-section-label">WHAT WE DO</span>
+            <h2>چطور به کسب‌وکارت کمک می‌کنیم؟</h2>
+            <p>
+                راهکارهای دیجیتال متناسب با نیاز و هدف تو.
+            </p>
+        </div>
+
+        <div class="cn-service-grid">
+
+            <article class="cn-service-card">
+                <div class="cn-service-icon">⌘</div>
+                <h3>طراحی وب‌سایت</h3>
+                <p>
+                    وب‌سایتی مدرن، واکنش‌گرا و متناسب
+                    با هویت برندت.
+                </p>
+                <span class="cn-service-number">01</span>
+            </article>
+
+            <article class="cn-service-card">
+                <div class="cn-service-icon">▣</div>
+                <h3>فروشگاه اینترنتی</h3>
+                <p>
+                    بستری برای معرفی محصولات و مدیریت
+                    فروش آنلاین کسب‌وکارت.
+                </p>
+                <span class="cn-service-number">02</span>
+            </article>
+            <article class="cn-service-card">
+                <div class="cn-service-icon">⌘</div>
+                <h3>توسعه اختصاصی</h3>
+                <p>
+                    قابلیت‌ها و امکانات سفارشی متناسب
+                    با نیاز پروژه‌ات.
+                </p>
+                <span class="cn-service-number">03</span>
+            </article>
+
+        </div>
+            </section>
+
+            <section class="cn-about" id="about">
+                <span class="cn-section-label">YOUR IDEA, OUR CODE</span>
+                <h2>هر پروژه، شروع یک فرصت تازه است.</h2>
+                <p>
+                    هدف ما ساخت راهکارهایی است که با نیاز واقعی
+                    پروژه تو هماهنگ باشند.
+                </p>
+            </section>
+
+        </main>
+        {% endblock %}

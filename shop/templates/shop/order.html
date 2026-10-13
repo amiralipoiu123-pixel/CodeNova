@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %}ثبت سفارش | CodeNova{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/order.css' %}">
+
+<section class="order-page">
+    <div class="order-container">
+
+        <div class="order-heading">
+            <span class="order-badge">CODENOVA</span>
+            <h1>پروژه‌ات رو شروع کن 🚀</h1>
+            <p>
+                جزئیات پروژه‌ات رو بنویس تا برای شروع بررسیش کنیم.
+            </p>
+        </div>
+
+        <form id="order-form" class="order-form" method="post">
+            {% csrf_token %}
+
+            {% if messages %}
+            <div class="toast-container" id="toast-container">
+                {% for message in messages %}
+                <div class="toast-message {{ message.tags }}">
+                    <span class="toast-icon">✓</span>
+                    <span>{{ message }}</span>
+                    <button type="button" class="toast-close"
+                            onclick="this.parentElement.remove()">×</button>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="name">نام شما</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="نام و نام خانوادگی"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="contact">راه ارتباطی</label>
+                <input
+                    type="text"
+                    id="contact"
+                    name="contact"
+                    placeholder="شماره تماس یا آیدی تلگرام"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="service">نوع پروژه</label>
+                <select id="service" name="service" required>
+                    <option value="" disabled selected>
+                        نوع پروژه رو انتخاب کن
+                    </option>
+                    <option value="website">طراحی وب‌سایت</option>
+                    <option value="store">فروشگاه اینترنتی</option>
+                    <option value="django">پایتون و Django</option>
+                    <option value="custom">پروژه اختصاصی</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="description">توضیحات پروژه</label>
+                <textarea
+                    id="description"
+                    name="description"
+                    rows="5"
+                    placeholder="توضیح بده چه چیزی مدنظرت هست..."
+                    required
+                ></textarea>
+            </div>
+
+            <button type="submit" class="order-submit">
+                ثبت سفارش
+                <span>←</span>
+            </button>
+
+            <a href="{% url 'home' %}" class="order-back">
+                بازگشت به صفحه اصلی
+            </a>
+        </form>
+
+    </div>
+</section>
+{% endblock %}
+<script>
+document.querySelectorAll(".toast-message").forEach(function (toast) {
+    setTimeout(function () {
+        toast.classList.add("hiding");
+
+        setTimeout(function () {
+            toast.remove();
+        }, 350);
+    }, 3500);
+});
+</script>

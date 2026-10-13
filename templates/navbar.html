@@ -1,0 +1,44 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+<header class="cn-navbar">
+    <div class="cn-nav-container">
+
+        <a class="cn-brand" href="/" aria-label="CodeNova - صفحه اصلی">
+            <span class="cn-brand-icon">&lt;/&gt;</span>
+            <span>
+                <span class="cn-brand-name">Code<span>Nova</span></span>
+                <span class="cn-brand-subtitle">Build Your Future</span>
+            </span>
+        </a>
+
+        <nav class="cn-nav-links" id="cnNavLinks"
+             aria-label="منوی اصلی">
+            <a href="/">خانه</a>
+            <a href="/#services">خدمات</a>
+            <a href="/#portfolio">نمونه‌کارها</a>
+            <a href="/#about">درباره ما</a>
+            <a href="/#contact">تماس با ما</a>
+        </nav>
+
+        <div class="cn-nav-actions">
+            <a class="cn-order-btn" href="/#order">
+                <span>＋</span>
+                ثبت سفارش
+            </a>
+
+            <button class="cn-menu-btn"
+                    id="cnMenuBtn"
+                    type="button"
+                    aria-label="باز کردن منو"
+                    aria-controls="cnNavLinks"
+                    aria-expanded="false">
+                ☰
+            </button>
+        </div>
+
+    </div>
+</header>
+
+<script src="{% static 'js/navbar.js' %}" defer></script>
