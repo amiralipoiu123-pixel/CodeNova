@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+from urllib.parse import urlparse
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,14 +23,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-only-insecure-key')
+SECRET_KEY = os.environ.get('SECRET_KEY')
+DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
+if not SECRET_KEY:
+    raise ValueError("SECRET_KEY environment variable is required")
 
-ALLOWED_HOSTS = [h.strip() for h in os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',') if h.strip()]
-
-
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.environ.get(
+        'ALLOWED_HOSTS',
+        '127.0.0.1,localhost'
+    ).split(',')
+    if host.strip()
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'shop',
     'dashboard',
+    'portfolio',
 ]
 
 MIDDLEWARE = [
@@ -76,18 +84,28 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
+DATABASE_URL = os.environ.get('DATABASE_URL')
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'mydb'),
-        'USER': os.environ.get('DB_USER', 'myuser'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+        )
     }
-}
-
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('DB_NAME', 'mydb'),
+            'USER': os.environ.get('DB_USER', 'myuser'),
+            'PASSWORD': os.environ.get('DB_PASSWORD', ''),
+            'HOST': os.environ.get('DB_HOST', 'localhost'),
+            'PORT': os.environ.get('DB_PORT', '5432'),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/6.1/ref/settings/#auth-password-validators
@@ -127,13 +145,18 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STORAGES = {
-    'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
-    'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage'},
+    'default': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    },
+    'staticfiles': {
+        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+    },
 }
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
@@ -144,11 +167,15 @@ MAILERS = {
     },
 }
 
+UPPCODER_SELF_URL = os.environ.get('UPPCODER_SELF_URL')
 
-# Use the hosted PostgreSQL database when DATABASE_URL is configured.
-if os.environ.get('DATABASE_URL'):
-    DATABASES['default'] = dj_database_url.parse(
-        os.environ['DATABASE_URL'],
-        conn_max_age=600,
-        ssl_require=True,
+if UPPCODER_SELF_URL:
+    CSRF_TRUSTED_ORIGINS = [UPPCODER_SELF_URL]
+    SECURE_PROXY_SSL_HEADER = (
+        'HTTP_X_FORWARDED_PROTO',
+        'https',
     )
+
+    host = urlparse(UPPCODER_SELF_URL).hostname
+    if host and host not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append(host)

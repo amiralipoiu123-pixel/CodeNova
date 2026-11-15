@@ -1,5 +1,4 @@
 # Python
-pycache/
 *.py[cod]
 *.pyo
 
@@ -23,3 +22,6 @@ media/
 .idea/
 .DS_Store
 *.backup
+pycache/
+pycache/
+pycache/

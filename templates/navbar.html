@@ -17,13 +17,13 @@
              aria-label="منوی اصلی">
             <a href="/">خانه</a>
             <a href="/#services">خدمات</a>
-            <a href="/#portfolio">نمونه‌کارها</a>
+            <a href="{% url 'portfolio:project_list' %}">نمونه‌کارها</a>
             <a href="/#about">درباره ما</a>
             <a href="/#contact">تماس با ما</a>
         </nav>
 
         <div class="cn-nav-actions">
-            <a class="cn-order-btn" href="/#order">
+            <a class="cn-order-btn" href="{% url 'order' %}">
                 <span>＋</span>
                 ثبت سفارش
             </a>

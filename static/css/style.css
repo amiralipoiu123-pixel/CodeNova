@@ -1406,3 +1406,262 @@
         grid-template-columns: 1fr;
     }
 }
+.portfolio-section {
+    padding: 60px 20px;
+    direction: rtl;
+}
+
+.portfolio-heading {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.portfolio-heading h1 {
+    font-size: 36px;
+    margin-bottom: 12px;
+}
+
+.portfolio-heading p {
+    color: #888;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+.project-card {
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    transition: transform 0.3s;
+}
+
+.project-card:hover {
+    transform: translateY(-6px);
+}
+
+.project-card img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+}
+
+.project-info {
+    padding: 20px;
+}
+
+.project-info h2 {
+    margin-bottom: 12px;
+}
+
+.project-info p {
+    color: #666;
+    line-height: 1.8;
+}
+
+.project-info span {
+    display: block;
+    margin: 15px 0;
+    color: #3273dc;
+}
+
+.project-info a {
+    display: inline-block;
+    background: #3273dc;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+}
+/* =========================
+   CodeNova Portfolio
+========================= */
+
+.portfolio-section {
+    --portfolio-purple: #a855f7;
+    direction: rtl;
+    max-width: 1200px;
+    min-height: 75vh;
+    margin: auto;
+    padding: 75px 24px;
+    color: #f5f3ff;
+}
+
+.portfolio-heading {
+    text-align: center;
+    margin-bottom: 55px;
+}
+
+.portfolio-heading h1 {
+    margin-bottom: 15px;
+    color: #f5f3ff;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 900;
+}
+
+.portfolio-heading p {
+    color: #aaa7bd;
+    font-size: 15px;
+    line-height: 2;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 25px;
+}
+
+.project-card {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid #ffffff12;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #171321, #100e19);
+    box-shadow: 0 15px 40px #0005;
+    transition: transform .3s ease, border-color .3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    border-color: #a855f766;
+}
+
+.project-card img {
+    display: block;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    background: #1b1428;
+}
+
+.project-info {
+    padding: 24px;
+}
+
+.project-info h2 {
+    margin: 0 0 14px;
+    color: #f5f3ff;
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.project-info p {
+    color: #aaa7bd;
+    font-size: 14px;
+    line-height: 2;
+}
+
+.project-info span {
+    display: block;
+    margin: 18px 0;
+    color: #c084fc;
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+.project-info a,
+.project-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
+    padding: 11px 19px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #a855f7, #7c3aed);
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: .2s ease;
+}
+
+.project-info a:hover,
+.project-links a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px #9333ea44;
+}
+
+/* Project Detail */
+
+.project-detail {
+    max-width: 850px;
+    margin: auto;
+    padding: 30px;
+    border: 1px solid #ffffff15;
+    border-radius: 22px;
+    background: #12101e;
+    box-shadow: 0 20px 60px #0005;
+}
+
+.project-detail h1 {
+    margin: 0 0 25px;
+    color: #f5f3ff;
+    font-size: clamp(25px, 4vw, 36px);
+}
+
+.project-detail > img {
+    display: block;
+    width: 100%;
+    max-height: 450px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.project-description h2,
+.project-technologies h3 {
+    color: #c084fc;
+    margin: 25px 0 12px;
+}
+
+.project-description p,
+.project-technologies p {
+    color: #c4bfd4;
+    line-height: 2.2;
+}
+
+.project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+@media (max-width: 600px) {
+    .portfolio-section {
+        padding: 45px 16px;
+    }
+
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .project-detail {
+        padding: 20px;
+    }
+
+    .project-card img {
+        height: 200px;
+    }
+}
+/* Portfolio dark background fix */
+
+body {
+    background: #0b0b14;
+}
+
+.portfolio-section {
+    background: #0b0b14;
+    color: #f5f3ff;
+}
+
+.portfolio-heading h1 {
+    color: #f5f3ff;
+}
+
+.portfolio-heading p {
+    color: #aaa7bd;
+}

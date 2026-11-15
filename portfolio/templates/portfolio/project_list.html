@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %}نمونه‌کارها | کدنوا{% endblock title %}
+
+{% block content %}
+
+<section class="portfolio-section">
+
+    <div class="portfolio-heading">
+        <h1>نمونه‌کارهای کدنوا</h1>
+        <p>پروژه‌هایی که با خلاقیت و کدنویسی ساخته‌ام.</p>
+    </div>
+
+    <div class="project-grid">
+
+        {% for project in projects %}
+
+        <div class="project-card">
+
+            <img src="{{ project.image.url }}"
+                 alt="{{ project.title }}">
+
+            <div class="project-info">
+
+                <h2>{{ project.title }}</h2>
+
+                <p>{{ project.description|truncatewords:20 }}</p>
+
+                <span>{{ project.technologies }}</span>
+
+                <a href="{% url 'portfolio:project_detail' project.pk %}">
+                    مشاهده جزئیات
+                </a>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <p>هنوز پروژه‌ای ثبت نشده است.</p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock content %}
